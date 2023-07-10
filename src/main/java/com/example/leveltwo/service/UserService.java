@@ -3,16 +3,14 @@ package com.example.leveltwo.service;
 import com.example.leveltwo.dto.SignupRequestDto;
 import com.example.leveltwo.dto.UserRequestDto;
 import com.example.leveltwo.entity.User;
-import com.example.leveltwo.repository.UserRepository;
 import com.example.leveltwo.jwt.JwtUtil;
+import com.example.leveltwo.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.channels.OverlappingFileLockException;
 import java.util.Optional;
 
 @Service

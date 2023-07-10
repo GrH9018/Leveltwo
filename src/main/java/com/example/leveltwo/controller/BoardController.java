@@ -4,10 +4,8 @@ import com.example.leveltwo.dto.BoardRequestDto;
 import com.example.leveltwo.dto.BoardResponseDto;
 import com.example.leveltwo.jwt.JwtUtil;
 import com.example.leveltwo.service.BoardService;
-import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
