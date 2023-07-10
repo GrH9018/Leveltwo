@@ -6,7 +6,8 @@ https://satin-argument-285.notion.site/476a448ba995410cb96dcebdb03a88cd?v=d1c46c
 
 ERD 설계
 
-https://www.erdcloud.com/d/MqSJ6oafku25xuGxx
+![ERD 설계](https://github.com/GrH9018/Leveltwo/assets/133674570/5730ca1c-c28b-4344-9a88-d13518102085)
+
 
 <aside>
 💡 **코드 컨벤션 - 함께 협업하기 위해, 어떤 규칙을 정했나요?**
