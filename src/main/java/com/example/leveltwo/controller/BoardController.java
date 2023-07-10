@@ -7,6 +7,8 @@ import com.example.leveltwo.service.BoardService;
 import io.jsonwebtoken.Jwt;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,9 +49,11 @@ public class BoardController {
 
     // 선택 게시글 삭제
     @DeleteMapping("/boards/{id}")
-    public Long deleteBoard(@PathVariable Long id, HttpServletRequest req) {
+    public ResponseEntity<String> deleteBoard(@PathVariable Long id, HttpServletRequest req) {
         String token = auth(req);
-        return boardService.deleteBoard(id, token);
+                boardService.deleteBoard(id, token);
+        return ResponseEntity.ok()
+                .body("게시글 삭제 성공");
     }
 
 
