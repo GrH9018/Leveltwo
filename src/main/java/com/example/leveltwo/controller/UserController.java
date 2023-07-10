@@ -3,10 +3,8 @@ package com.example.leveltwo.controller;
 import com.example.leveltwo.dto.SignupRequestDto;
 import com.example.leveltwo.dto.UserRequestDto;
 import com.example.leveltwo.service.UserService;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserRequestDto requestDto, HttpServletResponse JwtResponse){
-        userService.login(requestDto, JwtResponse);
+    public ResponseEntity<String> login(@RequestBody UserRequestDto requestDto, HttpServletResponse jwtResponse){
+        userService.login(requestDto, jwtResponse);
         return ResponseEntity.ok()
                 .body("로그인 성공");
-        //return userService.login(requestDto, JwtResponse);
     }
 }
