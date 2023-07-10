@@ -22,8 +22,7 @@ public class BoardController {
     // 게시글 작성
     @PostMapping("/boards")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto, HttpServletRequest req) {
-        String token = auth(req);
-        return boardService.createBoard(requestDto, token);
+        return boardService.createBoard(requestDto, req);
     }
 
     // 전체 게시글 조회
@@ -41,29 +40,16 @@ public class BoardController {
     // 선택 게시글 수정
     @PutMapping("/boards/{id}")
     public BoardResponseDto updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto, HttpServletRequest req) {
-        String token = auth(req);
-        return boardService.updateBoard(id, requestDto, token);
+        return boardService.updateBoard(id, requestDto, req);
     }
 
     // 선택 게시글 삭제
     @DeleteMapping("/boards/{id}")
     public ResponseEntity<String> deleteBoard(@PathVariable Long id, HttpServletRequest req) {
-        String token = auth(req);
-                boardService.deleteBoard(id, token);
+        boardService.deleteBoard(id, req);
         return ResponseEntity.ok()
                 .body("게시글 삭제 성공");
     }
 
-
-    private String auth(HttpServletRequest req) {
-        String tokenValue = req.getHeader(JwtUtil.AUTHORIZATION_HEADER);
-
-        String token = jwtUtil.substringToken(tokenValue);
-        if(!jwtUtil.validateToken(token)) {
-            throw new IllegalArgumentException("토큰 에러");
-        }
-
-        return token;
-    }
 
 }

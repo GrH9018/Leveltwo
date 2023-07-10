@@ -6,6 +6,7 @@ import com.example.leveltwo.entity.Board;
 import com.example.leveltwo.jwt.JwtUtil;
 import com.example.leveltwo.repository.BoardRepository;
 import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ public class BoardService {
     private final JwtUtil jwtUtil;
 
 
-    public BoardResponseDto createBoard(BoardRequestDto requestDto, String token) {
+    public BoardResponseDto createBoard(BoardRequestDto requestDto, HttpServletRequest req) {
+        String token = auth(req);
         String username = getUsername(token);
 
         Board board = new Board(requestDto, username);
@@ -41,7 +43,8 @@ public class BoardService {
         return new BoardResponseDto(board);
     }
 
-    public BoardResponseDto updateBoard(Long id, BoardRequestDto requestDto, String token) {
+    public BoardResponseDto updateBoard(Long id, BoardRequestDto requestDto, HttpServletRequest req) {
+        String token = auth(req);
         Board board = findBoard(id);
         checkUsername(board, token);
         board.update(requestDto);
@@ -50,7 +53,8 @@ public class BoardService {
 
 
 
-    public Long deleteBoard(Long id, String token) {
+    public Long deleteBoard(Long id, HttpServletRequest req) {
+        String token = auth(req);
         Board board = findBoard(id);
         checkUsername(board, token);
         boardRepository.delete(board);
@@ -76,6 +80,17 @@ public class BoardService {
         if (!board.getUsername().equals(username)) {
             throw new IllegalArgumentException("작성자가 아닙니다.");
         }
+    }
+
+    private String auth(HttpServletRequest req) {
+        String tokenValue = req.getHeader(JwtUtil.AUTHORIZATION_HEADER);
+
+        String token = jwtUtil.substringToken(tokenValue);
+        if(!jwtUtil.validateToken(token)) {
+            throw new IllegalArgumentException("토큰 에러");
+        }
+
+        return token;
     }
 
 }
